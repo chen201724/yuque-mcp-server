@@ -28,7 +28,7 @@ Visit [Yuque Developer Settings](https://www.yuque.com/settings/tokens) to gener
 #### Claude Code
 
 ```bash
-claude mcp add yuque -- npx -y yuque-mcp-server --token=YOUR_TOKEN
+claude mcp add yuque -- npx -y yuque-mcp --token=YOUR_TOKEN
 ```
 
 Or add to `~/.claude/claude_desktop_config.json`:
@@ -38,7 +38,7 @@ Or add to `~/.claude/claude_desktop_config.json`:
   "mcpServers": {
     "yuque": {
       "command": "npx",
-      "args": ["-y", "yuque-mcp-server"],
+      "args": ["-y", "yuque-mcp"],
       "env": {
         "YUQUE_TOKEN": "YOUR_TOKEN"
       }
@@ -56,7 +56,7 @@ Add to your Claude Desktop config (`~/Library/Application Support/Claude/claude_
   "mcpServers": {
     "yuque": {
       "command": "npx",
-      "args": ["-y", "yuque-mcp-server"],
+      "args": ["-y", "yuque-mcp"],
       "env": {
         "YUQUE_TOKEN": "YOUR_TOKEN"
       }
@@ -74,7 +74,7 @@ Add to `.cursor/mcp.json` in your project root:
   "mcpServers": {
     "yuque": {
       "command": "npx",
-      "args": ["-y", "yuque-mcp-server"],
+      "args": ["-y", "yuque-mcp"],
       "env": {
         "YUQUE_TOKEN": "YOUR_TOKEN"
       }
@@ -86,9 +86,9 @@ Add to `.cursor/mcp.json` in your project root:
 #### Global Install (alternative)
 
 ```bash
-npm install -g yuque-mcp-server
+npm install -g yuque-mcp
 export YUQUE_TOKEN=your_token_here
-yuque-mcp-server
+yuque-mcp
 ```
 
 ## Available Tools
@@ -124,8 +124,8 @@ yuque-mcp-server
 ## Docker
 
 ```bash
-docker build -t yuque-mcp-server .
-docker run --rm -i -e YUQUE_TOKEN=your_token yuque-mcp-server
+docker build -t yuque-mcp .
+docker run --rm -i -e YUQUE_TOKEN=your_token yuque-mcp
 ```
 
 MCP client config with Docker:
@@ -135,7 +135,7 @@ MCP client config with Docker:
   "mcpServers": {
     "yuque": {
       "command": "docker",
-      "args": ["run", "--rm", "-i", "-e", "YUQUE_TOKEN", "yuque-mcp-server"],
+      "args": ["run", "--rm", "-i", "-e", "YUQUE_TOKEN", "yuque-mcp"],
       "env": {
         "YUQUE_TOKEN": "your_token_here"
       }
@@ -194,7 +194,7 @@ Your token is invalid or expired. Generate a new one from Yuque settings.
 Rate limited by Yuque API. Wait a moment and retry.
 
 **Tool not found**
-Make sure you're using the latest version: `npx -y yuque-mcp-server@latest`
+Make sure you're using the latest version: `npx -y yuque-mcp@latest`
 
 ## Contributing
 

@@ -18,7 +18,7 @@ export function createServer(token: string) {
   const client = new YuqueClient(token);
   const server = new Server(
     {
-      name: 'yuque-mcp-server',
+      name: 'yuque-mcp',
       version: '0.1.0',
     },
     {

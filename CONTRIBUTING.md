@@ -108,8 +108,8 @@ Follow [Conventional Commits](https://www.conventionalcommits.org/):
 Build and run with Docker:
 
 ```bash
-docker build -t yuque-mcp-server .
-docker run --rm -i -e YUQUE_TOKEN=your_token yuque-mcp-server
+docker build -t yuque-mcp .
+docker run --rm -i -e YUQUE_TOKEN=your_token yuque-mcp
 ```
 
 ## Questions?

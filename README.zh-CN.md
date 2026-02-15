@@ -21,13 +21,13 @@
 ## 安装
 
 ```bash
-npm install -g yuque-mcp-server
+npm install -g yuque-mcp
 ```
 
 或直接使用 npx:
 
 ```bash
-npx yuque-mcp-server --token=YOUR_TOKEN
+npx yuque-mcp --token=YOUR_TOKEN
 ```
 
 ## 快速开始
@@ -42,13 +42,13 @@ npx yuque-mcp-server --token=YOUR_TOKEN
 
 ```bash
 export YUQUE_TOKEN=your_token_here
-yuque-mcp-server
+yuque-mcp
 ```
 
 或使用 CLI 参数:
 
 ```bash
-yuque-mcp-server --token=your_token_here
+yuque-mcp --token=your_token_here
 ```
 
 **HTTP 模式（用于测试）：**
@@ -109,10 +109,10 @@ npm start
 
 ```bash
 # 构建镜像
-docker build -t yuque-mcp-server .
+docker build -t yuque-mcp .
 
 # 运行（stdio 模式）
-docker run --rm -i -e YUQUE_TOKEN=your_token yuque-mcp-server
+docker run --rm -i -e YUQUE_TOKEN=your_token yuque-mcp
 ```
 
 Docker 方式的 MCP 客户端配置：
@@ -122,7 +122,7 @@ Docker 方式的 MCP 客户端配置：
   "mcpServers": {
     "yuque": {
       "command": "docker",
-      "args": ["run", "--rm", "-i", "-e", "YUQUE_TOKEN", "yuque-mcp-server"],
+      "args": ["run", "--rm", "-i", "-e", "YUQUE_TOKEN", "yuque-mcp"],
       "env": {
         "YUQUE_TOKEN": "your_token_here"
       }
@@ -146,7 +146,7 @@ Docker 方式的 MCP 客户端配置：
 {
   "mcpServers": {
     "yuque": {
-      "command": "yuque-mcp-server",
+      "command": "yuque-mcp",
       "env": {
         "YUQUE_TOKEN": "your_token_here"
       }
