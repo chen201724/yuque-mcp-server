@@ -1,121 +1,134 @@
 # Yuque MCP Server
 
+[![CI](https://github.com/chen201724/yuque-mcp-server/actions/workflows/ci.yml/badge.svg)](https://github.com/chen201724/yuque-mcp-server/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.7-blue.svg)](https://www.typescriptlang.org/)
 [![MCP](https://img.shields.io/badge/MCP-1.0-green.svg)](https://modelcontextprotocol.io/)
 
-Official-quality MCP (Model Context Protocol) server for Yuque (语雀) API. This server exposes Yuque's knowledge base capabilities to AI assistants through the standardized MCP interface.
+MCP server for [Yuque (语雀)](https://www.yuque.com/) — expose your Yuque knowledge base to AI assistants through the [Model Context Protocol](https://modelcontextprotocol.io/).
 
 [中文文档](./README.zh-CN.md)
 
 ## Features
 
-- **Complete API Coverage**: All 25 Yuque API endpoints implemented
-- **Dual Transport**: Supports both stdio and streamable-http transports
-- **Type-Safe**: Full TypeScript implementation with strict mode
-- **AI-Optimized**: Response formatting designed to minimize token usage
-- **Flexible Auth**: Environment variable or CLI argument authentication
-- **Well-Tested**: Comprehensive test coverage with vitest
-- **Production-Ready**: Follows Ant Design open-source standards
-
-## Installation
-
-```bash
-npm install -g yuque-mcp-server
-```
-
-Or use directly with npx:
-
-```bash
-npx yuque-mcp-server --token=YOUR_TOKEN
-```
+- **25 Tools** — Complete coverage of Yuque API (docs, repos, search, groups, stats, TOC, versions)
+- **Stdio Transport** — Works with Claude Desktop, Cursor, Claude Code, Windsurf, and any MCP-compatible client
+- **Type-Safe** — Full TypeScript with strict mode + Zod parameter validation
+- **AI-Optimized** — Response formatting designed to minimize token usage
+- **Well-Tested** — Unit tests with vitest, CI on Node 18/20/22
 
 ## Quick Start
 
 ### 1. Get Your Yuque API Token
 
-Visit [Yuque Settings](https://www.yuque.com/settings/tokens) to generate your API token.
+Visit [Yuque Developer Settings](https://www.yuque.com/settings/tokens) to generate a personal API token.
 
-### 2. Run the Server
+### 2. Configure Your MCP Client
 
-**Stdio mode (for MCP clients):**
+#### Claude Code
 
 ```bash
+claude mcp add yuque -- npx -y yuque-mcp-server --token=YOUR_TOKEN
+```
+
+Or add to `~/.claude/claude_desktop_config.json`:
+
+```json
+{
+  "mcpServers": {
+    "yuque": {
+      "command": "npx",
+      "args": ["-y", "yuque-mcp-server"],
+      "env": {
+        "YUQUE_TOKEN": "YOUR_TOKEN"
+      }
+    }
+  }
+}
+```
+
+#### Claude Desktop
+
+Add to your Claude Desktop config (`~/Library/Application Support/Claude/claude_desktop_config.json` on macOS):
+
+```json
+{
+  "mcpServers": {
+    "yuque": {
+      "command": "npx",
+      "args": ["-y", "yuque-mcp-server"],
+      "env": {
+        "YUQUE_TOKEN": "YOUR_TOKEN"
+      }
+    }
+  }
+}
+```
+
+#### Cursor
+
+Add to `.cursor/mcp.json` in your project root:
+
+```json
+{
+  "mcpServers": {
+    "yuque": {
+      "command": "npx",
+      "args": ["-y", "yuque-mcp-server"],
+      "env": {
+        "YUQUE_TOKEN": "YOUR_TOKEN"
+      }
+    }
+  }
+}
+```
+
+#### Global Install (alternative)
+
+```bash
+npm install -g yuque-mcp-server
 export YUQUE_TOKEN=your_token_here
 yuque-mcp-server
 ```
 
-Or with CLI argument:
-
-```bash
-yuque-mcp-server --token=your_token_here
-```
-
-**HTTP mode (for testing):**
-
-```bash
-export YUQUE_TOKEN=your_token_here
-npm start
-```
-
-The server will run on `http://localhost:3000` by default.
-
 ## Available Tools
 
-### User & Groups (2 tools)
-- `yuque_get_user` - Get current user information
-- `yuque_list_groups` - List user's groups/teams
-
-### Search (1 tool)
-- `yuque_search` - Search documents, repos, or users
-
-### Repositories (5 tools)
-- `yuque_list_repos` - List repos for user or group
-- `yuque_get_repo` - Get repo details
-- `yuque_create_repo` - Create new repo
-- `yuque_update_repo` - Update repo
-- `yuque_delete_repo` - Delete repo
-
-### Documents (5 tools)
-- `yuque_list_docs` - List documents in repo
-- `yuque_get_doc` - Get document with full content
-- `yuque_create_doc` - Create new document
-- `yuque_update_doc` - Update document
-- `yuque_delete_doc` - Delete document
-
-### Table of Contents (2 tools)
-- `yuque_get_toc` - Get repo TOC
-- `yuque_update_toc` - Update repo TOC
-
-### Document Versions (2 tools)
-- `yuque_list_doc_versions` - List document versions
-- `yuque_get_doc_version` - Get specific version
-
-### Group Management (3 tools)
-- `yuque_list_group_members` - List group members
-- `yuque_update_group_member` - Update member role
-- `yuque_remove_group_member` - Remove member
-
-### Statistics (4 tools)
-- `yuque_group_stats` - Group statistics
-- `yuque_group_member_stats` - Member statistics
-- `yuque_group_book_stats` - Book statistics
-- `yuque_group_doc_stats` - Document statistics
-
-### Utility (1 tool)
-- `yuque_hello` - Test API connectivity
+| Category | Tool | Description |
+|----------|------|-------------|
+| **User** | `yuque_get_user` | Get current user info |
+| **User** | `yuque_list_groups` | List user's groups/teams |
+| **Search** | `yuque_search` | Search docs, repos, or users |
+| **Repos** | `yuque_list_repos` | List repos for user or group |
+| **Repos** | `yuque_get_repo` | Get repo details |
+| **Repos** | `yuque_create_repo` | Create new repo |
+| **Repos** | `yuque_update_repo` | Update repo settings |
+| **Repos** | `yuque_delete_repo` | Delete repo |
+| **Docs** | `yuque_list_docs` | List documents in repo |
+| **Docs** | `yuque_get_doc` | Get document with full content |
+| **Docs** | `yuque_create_doc` | Create new document |
+| **Docs** | `yuque_update_doc` | Update document |
+| **Docs** | `yuque_delete_doc` | Delete document |
+| **TOC** | `yuque_get_toc` | Get repo table of contents |
+| **TOC** | `yuque_update_toc` | Update repo TOC |
+| **Versions** | `yuque_list_doc_versions` | List document versions |
+| **Versions** | `yuque_get_doc_version` | Get specific version |
+| **Groups** | `yuque_list_group_members` | List group members |
+| **Groups** | `yuque_update_group_member` | Update member role |
+| **Groups** | `yuque_remove_group_member` | Remove member |
+| **Stats** | `yuque_group_stats` | Group statistics |
+| **Stats** | `yuque_group_member_stats` | Member statistics |
+| **Stats** | `yuque_group_book_stats` | Book statistics |
+| **Stats** | `yuque_group_doc_stats` | Document statistics |
+| **Utility** | `yuque_hello` | Test API connectivity |
 
 ## Docker
 
 ```bash
-# Build
 docker build -t yuque-mcp-server .
-
-# Run (stdio mode)
 docker run --rm -i -e YUQUE_TOKEN=your_token yuque-mcp-server
 ```
 
-MCP client configuration with Docker:
+MCP client config with Docker:
 
 ```json
 {
@@ -131,90 +144,65 @@ MCP client configuration with Docker:
 }
 ```
 
-## Configuration
-
-### Environment Variables
-
-- `YUQUE_TOKEN` - Your Yuque API token (required)
-- `PORT` - HTTP server port (default: 3000, HTTP mode only)
-
-### MCP Client Configuration
-
-Add to your MCP client configuration (e.g., Claude Desktop):
-
-```json
-{
-  "mcpServers": {
-    "yuque": {
-      "command": "yuque-mcp-server",
-      "env": {
-        "YUQUE_TOKEN": "your_token_here"
-      }
-    }
-  }
-}
-```
-
 ## Development
 
 ```bash
-# Clone the repository
-git clone https://github.com/yourusername/yuque-mcp-server.git
+git clone https://github.com/chen201724/yuque-mcp-server.git
 cd yuque-mcp-server
-
-# Install dependencies
 npm install
-
-# Run tests
-npm test
-
-# Run with coverage
-npm run test:coverage
-
-# Build
-npm run build
-
-# Development mode with hot reload
-npm run dev
-
-# Lint
-npm run lint
-
-# Format
-npm run format
+npm test              # run tests
+npm run test:coverage # with coverage
+npm run build         # compile TypeScript
+npm run dev           # dev mode with hot reload
+npm run lint          # lint
+npm run format        # format
 ```
 
 ## Architecture
 
 ```
 src/
-├── index.ts              — HTTP server entry
-├── cli.ts                — CLI entry (stdio)
+├── cli.ts                — CLI entry (stdio transport)
+├── index.ts              — HTTP entry (self-hosted, optional)
 ├── server.ts             — MCP server core
-├── tools/                — Tool implementations
-│   ├── user.ts
-│   ├── repo.ts
-│   ├── doc.ts
-│   ├── toc.ts
-│   ├── search.ts
-│   ├── group.ts
-│   ├── stats.ts
-│   └── version.ts
+├── tools/                — Tool implementations (25 tools)
+│   ├── user.ts           — User & group listing
+│   ├── repo.ts           — Repository CRUD
+│   ├── doc.ts            — Document CRUD
+│   ├── toc.ts            — Table of contents
+│   ├── search.ts         — Full-text search
+│   ├── group.ts          — Group member management
+│   ├── stats.ts          — Analytics & statistics
+│   └── version.ts        — Document version history
 ├── services/
-│   ├── yuque-client.ts   — Yuque API client
+│   ├── yuque-client.ts   — Yuque API HTTP client
 │   └── types.ts          — Type definitions
 └── utils/
-    ├── format.ts         — Response formatting
-    └── error.ts          — Error handling
+    ├── format.ts         — AI-optimized response formatting
+    └── error.ts          — Error handling & user-friendly messages
 ```
+
+## Troubleshooting
+
+**"YUQUE_TOKEN is required"**
+Set the token via environment variable or `--token` argument. Get yours at [Yuque Settings](https://www.yuque.com/settings/tokens).
+
+**"Request failed with status 401"**
+Your token is invalid or expired. Generate a new one from Yuque settings.
+
+**"Request failed with status 429"**
+Rate limited by Yuque API. Wait a moment and retry.
+
+**Tool not found**
+Make sure you're using the latest version: `npx -y yuque-mcp-server@latest`
 
 ## Contributing
 
-We welcome contributions! Please see [CONTRIBUTING.md](./CONTRIBUTING.md) for details.
+Contributions welcome! Please see [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ## Security
 
-For security issues, please see [SECURITY.md](./SECURITY.md).
+For security issues, see [SECURITY.md](./SECURITY.md).
 
 ## License
 
@@ -224,8 +212,4 @@ For security issues, please see [SECURITY.md](./SECURITY.md).
 
 - [Yuque API Documentation](https://www.yuque.com/yuque/developer/api)
 - [Model Context Protocol](https://modelcontextprotocol.io/)
-- [Yuque Official Website](https://www.yuque.com/)
-
-## Acknowledgments
-
-This project is inspired by the [Notion MCP Server](https://github.com/makenotion/notion-mcp-server) and follows Ant Design open-source standards.
+- [MCP TypeScript SDK](https://github.com/modelcontextprotocol/typescript-sdk)
