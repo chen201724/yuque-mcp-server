@@ -4,6 +4,7 @@ import {
   CallToolRequestSchema,
   ListToolsRequestSchema,
 } from '@modelcontextprotocol/sdk/types.js';
+import { zodToJsonSchema } from 'zod-to-json-schema';
 import { YuqueClient } from './services/yuque-client.js';
 import { userTools } from './tools/user.js';
 import { repoTools } from './tools/repo.js';
@@ -46,7 +47,7 @@ export function createServer(token: string) {
       tools: Object.entries(allTools).map(([name, tool]) => ({
         name,
         description: tool.description,
-        inputSchema: tool.inputSchema,
+        inputSchema: zodToJsonSchema(tool.inputSchema),
       })),
     };
   });
