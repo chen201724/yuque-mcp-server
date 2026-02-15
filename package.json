@@ -1,11 +1,11 @@
 {
-  "name": "yuque-mcp-server",
+  "name": "yuque-mcp",
   "version": "0.1.0",
   "description": "MCP server for Yuque (语雀) — expose Yuque knowledge base to AI assistants via Model Context Protocol",
   "type": "module",
   "main": "dist/cli.js",
   "bin": {
-    "yuque-mcp-server": "dist/cli.js"
+    "yuque-mcp": "dist/cli.js"
   },
   "files": [
     "dist",
