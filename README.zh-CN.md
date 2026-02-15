@@ -1,220 +1,84 @@
-# 语雀 MCP 服务器
+# Yuque MCP Server
 
+[![CI](https://github.com/chen201724/yuque-mcp-server/actions/workflows/ci.yml/badge.svg)](https://github.com/chen201724/yuque-mcp-server/actions/workflows/ci.yml)
+[![npm version](https://img.shields.io/npm/v/yuque-mcp)](https://www.npmjs.com/package/yuque-mcp)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.7-blue.svg)](https://www.typescriptlang.org/)
-[![MCP](https://img.shields.io/badge/MCP-1.0-green.svg)](https://modelcontextprotocol.io/)
 
-语雀 API 的官方品质 MCP (Model Context Protocol) 服务器。该服务器通过标准化的 MCP 接口向 AI 助手暴露语雀的知识库能力。
+[语雀](https://www.yuque.com/) MCP Server — 通过 [Model Context Protocol](https://modelcontextprotocol.io/) 让 AI 助手访问你的语雀知识库。
 
-[English Documentation](./README.md)
-
-## 特性
-
-- **完整 API 覆盖**：实现了全部 25 个语雀 API 端点
-- **双传输模式**：支持 stdio 和 streamable-http 两种传输方式
-- **类型安全**：完整的 TypeScript 实现，启用严格模式
-- **AI 优化**：响应格式设计旨在最小化 token 使用
-- **灵活认证**：支持环境变量或 CLI 参数认证
-- **完善测试**：使用 vitest 进行全面测试覆盖
-- **生产就绪**：遵循 Ant Design 开源标准
-
-## 安装
-
-```bash
-npm install -g yuque-mcp
-```
-
-或直接使用 npx:
-
-```bash
-npx yuque-mcp --token=YOUR_TOKEN
-```
+[English](./README.md)
 
 ## 快速开始
 
 ### 1. 获取语雀 API Token
 
-访问 [语雀设置](https://www.yuque.com/settings/tokens) 生成你的 API token。
+前往 [语雀开发者设置](https://www.yuque.com/settings/tokens) 创建个人 Token。
 
-### 2. 运行服务器
+### 2. 添加到 MCP 客户端
 
-**Stdio 模式（用于 MCP 客户端）：**
-
-```bash
-export YUQUE_TOKEN=your_token_here
-yuque-mcp
-```
-
-或使用 CLI 参数:
+#### Claude Code（已验证 ✅）
 
 ```bash
-yuque-mcp --token=your_token_here
+claude mcp add yuque-mcp -- npx -y yuque-mcp --token=YOUR_TOKEN
 ```
 
-**HTTP 模式（用于测试）：**
+#### Claude Desktop / Cursor / Windsurf
 
-```bash
-export YUQUE_TOKEN=your_token_here
-npm start
-```
+添加到 MCP 配置文件：
 
-服务器默认运行在 `http://localhost:3000`。
-
-## 可用工具
-
-### 用户与团队 (2 个工具)
-- `yuque_get_user` - 获取当前用户信息
-- `yuque_list_groups` - 列出用户的团队
-
-### 搜索 (1 个工具)
-- `yuque_search` - 搜索文档、知识库或用户
-
-### 知识库 (5 个工具)
-- `yuque_list_repos` - 列出用户或团队的知识库
-- `yuque_get_repo` - 获取知识库详情
-- `yuque_create_repo` - 创建新知识库
-- `yuque_update_repo` - 更新知识库
-- `yuque_delete_repo` - 删除知识库
-
-### 文档 (5 个工具)
-- `yuque_list_docs` - 列出知识库中的文档
-- `yuque_get_doc` - 获取文档完整内容
-- `yuque_create_doc` - 创建新文档
-- `yuque_update_doc` - 更新文档
-- `yuque_delete_doc` - 删除文档
-
-### 目录 (2 个工具)
-- `yuque_get_toc` - 获取知识库目录
-- `yuque_update_toc` - 更新知识库目录
-
-### 文档版本 (2 个工具)
-- `yuque_list_doc_versions` - 列出文档版本
-- `yuque_get_doc_version` - 获取特定版本
-
-### 团队管理 (3 个工具)
-- `yuque_list_group_members` - 列出团队成员
-- `yuque_update_group_member` - 更新成员角色
-- `yuque_remove_group_member` - 移除成员
-
-### 统计 (4 个工具)
-- `yuque_group_stats` - 团队统计
-- `yuque_group_member_stats` - 成员统计
-- `yuque_group_book_stats` - 知识库统计
-- `yuque_group_doc_stats` - 文档统计
-
-### 工具 (1 个工具)
-- `yuque_hello` - 测试 API 连接
-
-## Docker
-
-```bash
-# 构建镜像
-docker build -t yuque-mcp .
-
-# 运行（stdio 模式）
-docker run --rm -i -e YUQUE_TOKEN=your_token yuque-mcp
-```
-
-Docker 方式的 MCP 客户端配置：
+- **Claude Desktop**: `~/Library/Application Support/Claude/claude_desktop_config.json`（macOS）
+- **Cursor**: 项目根目录 `.cursor/mcp.json`
 
 ```json
 {
   "mcpServers": {
     "yuque": {
-      "command": "docker",
-      "args": ["run", "--rm", "-i", "-e", "YUQUE_TOKEN", "yuque-mcp"],
+      "command": "npx",
+      "args": ["-y", "yuque-mcp"],
       "env": {
-        "YUQUE_TOKEN": "your_token_here"
+        "YUQUE_TOKEN": "YOUR_TOKEN"
       }
     }
   }
 }
 ```
 
-## 配置
+### 3. 开始使用！
 
-### 环境变量
+让 AI 助手搜索语雀文档、创建文档、管理知识库。
 
-- `YUQUE_TOKEN` - 你的语雀 API token（必需）
-- `PORT` - HTTP 服务器端口（默认：3000，仅 HTTP 模式）
+## 可用工具（25 个）
 
-### MCP 客户端配置
+| 分类 | 工具 |
+|------|------|
+| **用户** | `yuque_get_user`、`yuque_list_groups` |
+| **搜索** | `yuque_search` |
+| **知识库** | `yuque_list_repos`、`yuque_get_repo`、`yuque_create_repo`、`yuque_update_repo`、`yuque_delete_repo` |
+| **文档** | `yuque_list_docs`、`yuque_get_doc`、`yuque_create_doc`、`yuque_update_doc`、`yuque_delete_doc` |
+| **目录** | `yuque_get_toc`、`yuque_update_toc` |
+| **版本** | `yuque_list_doc_versions`、`yuque_get_doc_version` |
+| **团队** | `yuque_list_group_members`、`yuque_update_group_member`、`yuque_remove_group_member` |
+| **统计** | `yuque_group_stats`、`yuque_group_member_stats`、`yuque_group_book_stats`、`yuque_group_doc_stats` |
+| **工具** | `yuque_hello` |
 
-添加到你的 MCP 客户端配置（例如 Claude Desktop）：
+## 常见问题
 
-```json
-{
-  "mcpServers": {
-    "yuque": {
-      "command": "yuque-mcp",
-      "env": {
-        "YUQUE_TOKEN": "your_token_here"
-      }
-    }
-  }
-}
-```
+| 错误 | 解决方案 |
+|------|----------|
+| `YUQUE_TOKEN is required` | 传入 `--token=YOUR_TOKEN` 或设置 `YUQUE_TOKEN` 环境变量 |
+| `401 Unauthorized` | Token 无效或过期 — 到[语雀设置](https://www.yuque.com/settings/tokens)重新生成 |
+| `429 Rate Limited` | 请求过于频繁，等待后重试 |
 
 ## 开发
 
 ```bash
-# 克隆仓库
 git clone https://github.com/chen201724/yuque-mcp-server.git
 cd yuque-mcp-server
-
-# 安装依赖
 npm install
-
-# 运行测试
-npm test
-
-# 运行测试覆盖率
-npm run test:coverage
-
-# 构建
-npm run build
-
-# 开发模式（热重载）
-npm run dev
-
-# 代码检查
-npm run lint
-
-# 代码格式化
-npm run format
+npm test              # 运行测试（57 个测试用例）
+npm run build         # 编译 TypeScript
+npm run dev           # 开发模式
 ```
-
-## 架构
-
-```
-src/
-├── index.ts              — HTTP 服务器入口
-├── cli.ts                — CLI 入口（stdio）
-├── server.ts             — MCP 服务器核心
-├── tools/                — 工具实现（按领域划分）
-│   ├── user.ts
-│   ├── repo.ts
-│   ├── doc.ts
-│   ├── toc.ts
-│   ├── search.ts
-│   ├── group.ts
-│   ├── stats.ts
-│   └── version.ts
-├── services/
-│   ├── yuque-client.ts   — 语雀 API 客户端
-│   └── types.ts          — 类型定义
-└── utils/
-    ├── format.ts         — 响应格式化
-    └── error.ts          — 错误处理
-```
-
-## 贡献
-
-我们欢迎贡献！详情请参阅 [CONTRIBUTING.md](./CONTRIBUTING.md)。
-
-## 安全
-
-安全问题请参阅 [SECURITY.md](./SECURITY.md)。
 
 ## 许可证
 
@@ -222,10 +86,4 @@ src/
 
 ## 链接
 
-- [语雀 API 文档](https://www.yuque.com/yuque/developer/api)
-- [Model Context Protocol](https://modelcontextprotocol.io/)
-- [语雀官网](https://www.yuque.com/)
-
-## 致谢
-
-本项目受 [Notion MCP Server](https://github.com/makenotion/notion-mcp-server) 启发，遵循 Ant Design 开源标准。
+- [语雀 API 文档](https://www.yuque.com/yuque/developer/api) · [MCP 协议](https://modelcontextprotocol.io/) · [贡献指南](./CONTRIBUTING.md)
