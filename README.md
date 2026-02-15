@@ -16,31 +16,10 @@ Visit [Yuque Developer Settings](https://www.yuque.com/settings/tokens) to creat
 
 ### 2. Add to Your MCP Client
 
-#### Claude Code (verified ✅)
+#### Claude Code
 
 ```bash
 claude mcp add yuque-mcp -- npx -y yuque-mcp --token=YOUR_TOKEN
-```
-
-#### Claude Desktop / Cursor / Windsurf
-
-Add to your MCP config file:
-
-- **Claude Desktop**: `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS)
-- **Cursor**: `.cursor/mcp.json` in project root
-
-```json
-{
-  "mcpServers": {
-    "yuque": {
-      "command": "npx",
-      "args": ["-y", "yuque-mcp"],
-      "env": {
-        "YUQUE_TOKEN": "YOUR_TOKEN"
-      }
-    }
-  }
-}
 ```
 
 ### 3. Done!

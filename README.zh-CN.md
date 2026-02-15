@@ -16,31 +16,10 @@
 
 ### 2. 添加到 MCP 客户端
 
-#### Claude Code（已验证 ✅）
+#### Claude Code
 
 ```bash
 claude mcp add yuque-mcp -- npx -y yuque-mcp --token=YOUR_TOKEN
-```
-
-#### Claude Desktop / Cursor / Windsurf
-
-添加到 MCP 配置文件：
-
-- **Claude Desktop**: `~/Library/Application Support/Claude/claude_desktop_config.json`（macOS）
-- **Cursor**: 项目根目录 `.cursor/mcp.json`
-
-```json
-{
-  "mcpServers": {
-    "yuque": {
-      "command": "npx",
-      "args": ["-y", "yuque-mcp"],
-      "env": {
-        "YUQUE_TOKEN": "YOUR_TOKEN"
-      }
-    }
-  }
-}
 ```
 
 ### 3. 开始使用！
