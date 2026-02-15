@@ -105,6 +105,32 @@ The server will run on `http://localhost:3000` by default.
 ### Utility (1 tool)
 - `yuque_hello` - Test API connectivity
 
+## Docker
+
+```bash
+# Build
+docker build -t yuque-mcp-server .
+
+# Run (stdio mode)
+docker run --rm -i -e YUQUE_TOKEN=your_token yuque-mcp-server
+```
+
+MCP client configuration with Docker:
+
+```json
+{
+  "mcpServers": {
+    "yuque": {
+      "command": "docker",
+      "args": ["run", "--rm", "-i", "-e", "YUQUE_TOKEN", "yuque-mcp-server"],
+      "env": {
+        "YUQUE_TOKEN": "your_token_here"
+      }
+    }
+  }
+}
+```
+
 ## Configuration
 
 ### Environment Variables

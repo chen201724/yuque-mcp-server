@@ -105,6 +105,32 @@ npm start
 ### 工具 (1 个工具)
 - `yuque_hello` - 测试 API 连接
 
+## Docker
+
+```bash
+# 构建镜像
+docker build -t yuque-mcp-server .
+
+# 运行（stdio 模式）
+docker run --rm -i -e YUQUE_TOKEN=your_token yuque-mcp-server
+```
+
+Docker 方式的 MCP 客户端配置：
+
+```json
+{
+  "mcpServers": {
+    "yuque": {
+      "command": "docker",
+      "args": ["run", "--rm", "-i", "-e", "YUQUE_TOKEN", "yuque-mcp-server"],
+      "env": {
+        "YUQUE_TOKEN": "your_token_here"
+      }
+    }
+  }
+}
+```
+
 ## 配置
 
 ### 环境变量
