@@ -18,7 +18,7 @@ Unacceptable behavior:
 
 ## Enforcement
 
-Report issues to [INSERT EMAIL]. All complaints will be reviewed promptly.
+Report issues via [GitHub Issues](https://github.com/chen201724/yuque-mcp-server/issues). All complaints will be reviewed promptly.
 
 ## Attribution
 

@@ -159,7 +159,7 @@ Docker 方式的 MCP 客户端配置：
 
 ```bash
 # 克隆仓库
-git clone https://github.com/yourusername/yuque-mcp-server.git
+git clone https://github.com/chen201724/yuque-mcp-server.git
 cd yuque-mcp-server
 
 # 安装依赖

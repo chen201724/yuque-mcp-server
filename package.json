@@ -1,15 +1,22 @@
 {
   "name": "yuque-mcp-server",
   "version": "0.1.0",
-  "description": "Official-quality MCP server for Yuque (语雀) API",
+  "description": "MCP server for Yuque (语雀) — expose Yuque knowledge base to AI assistants via Model Context Protocol",
   "type": "module",
-  "main": "dist/index.js",
+  "main": "dist/cli.js",
   "bin": {
     "yuque-mcp-server": "dist/cli.js"
   },
+  "files": [
+    "dist",
+    "README.md",
+    "README.zh-CN.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
   "scripts": {
     "build": "tsc && chmod +x dist/cli.js",
-    "dev": "tsx watch src/index.ts",
+    "dev": "tsx watch src/cli.ts",
     "test": "vitest",
     "test:coverage": "vitest --coverage",
     "lint": "eslint src tests",
@@ -25,18 +32,20 @@
     "model-context-protocol",
     "ai",
     "llm",
-    "knowledge-base"
+    "knowledge-base",
+    "claude",
+    "cursor"
   ],
-  "author": "Yuque MCP Contributors",
+  "author": "chen201724",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/yuque-mcp-server.git"
+    "url": "https://github.com/chen201724/yuque-mcp-server.git"
   },
   "bugs": {
-    "url": "https://github.com/yourusername/yuque-mcp-server/issues"
+    "url": "https://github.com/chen201724/yuque-mcp-server/issues"
   },
-  "homepage": "https://github.com/yourusername/yuque-mcp-server#readme",
+  "homepage": "https://github.com/chen201724/yuque-mcp-server#readme",
   "engines": {
     "node": ">=18.0.0"
   },
