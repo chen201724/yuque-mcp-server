@@ -6,7 +6,7 @@
 
 [语雀](https://www.yuque.com/) MCP Server — 通过 [Model Context Protocol](https://modelcontextprotocol.io/) 让 AI 助手访问你的语雀知识库。
 
-[English](./README.md)
+🌐 **[官网](https://chen201724.github.io/yuque-ecosystem/)** · [English](./README.md)
 
 ## 快速开始
 
@@ -65,4 +65,4 @@ npm run dev           # 开发模式
 
 ## 链接
 
-- [语雀 API 文档](https://www.yuque.com/yuque/developer/api) · [MCP 协议](https://modelcontextprotocol.io/) · [贡献指南](./CONTRIBUTING.md)
+- [官网](https://chen201724.github.io/yuque-ecosystem/) · [语雀 API 文档](https://www.yuque.com/yuque/developer/api) · [MCP 协议](https://modelcontextprotocol.io/) · [贡献指南](./CONTRIBUTING.md)

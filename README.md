@@ -6,7 +6,7 @@
 
 MCP server for [Yuque (语雀)](https://www.yuque.com/) — expose your knowledge base to AI assistants through the [Model Context Protocol](https://modelcontextprotocol.io/).
 
-[中文文档](./README.zh-CN.md)
+🌐 **[Website](https://chen201724.github.io/yuque-ecosystem/)** · [中文文档](./README.zh-CN.md)
 
 ## Quick Start
 
@@ -66,4 +66,4 @@ npm run dev           # dev mode with hot reload
 
 ## Links
 
-- [Yuque API Docs](https://www.yuque.com/yuque/developer/api) · [MCP Protocol](https://modelcontextprotocol.io/) · [Contributing](./CONTRIBUTING.md)
+- [Website](https://chen201724.github.io/yuque-ecosystem/) · [Yuque API Docs](https://www.yuque.com/yuque/developer/api) · [MCP Protocol](https://modelcontextprotocol.io/) · [Contributing](./CONTRIBUTING.md)
