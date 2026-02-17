@@ -3,6 +3,8 @@ import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js'
 import {
   CallToolRequestSchema,
   ListToolsRequestSchema,
+  ListPromptsRequestSchema,
+  GetPromptRequestSchema,
 } from '@modelcontextprotocol/sdk/types.js';
 import { zodToJsonSchema } from 'zod-to-json-schema';
 import { YuqueClient } from './services/yuque-client.js';
@@ -14,6 +16,7 @@ import { searchTools } from './tools/search.js';
 import { groupTools } from './tools/group.js';
 import { statsTools } from './tools/stats.js';
 import { versionTools } from './tools/version.js';
+import { allPrompts, promptsByName } from './prompts/index.js';
 
 export function createServer(token: string) {
   const client = new YuqueClient(token);
@@ -25,6 +28,7 @@ export function createServer(token: string) {
     {
       capabilities: {
         tools: {},
+        prompts: {},
       },
     }
   );
@@ -72,6 +76,40 @@ export function createServer(token: string) {
       }
       throw error;
     }
+  });
+
+  // Register prompts/list handler
+  server.setRequestHandler(ListPromptsRequestSchema, async () => {
+    return {
+      prompts: allPrompts.map((p) => ({
+        name: p.name,
+        description: p.description,
+        arguments: p.arguments,
+      })),
+    };
+  });
+
+  // Register prompts/get handler
+  server.setRequestHandler(GetPromptRequestSchema, async (request) => {
+    const promptName = request.params.name;
+    const prompt = promptsByName[promptName];
+
+    if (!prompt) {
+      throw new Error(`Unknown prompt: ${promptName}`);
+    }
+
+    // Validate required arguments
+    const args = request.params.arguments ?? {};
+    for (const arg of prompt.arguments) {
+      if (arg.required && !(arg.name in args)) {
+        throw new Error(`Missing required argument: ${arg.name}`);
+      }
+    }
+
+    return {
+      description: prompt.description,
+      messages: prompt.getMessages(args),
+    };
   });
 
   return server;
