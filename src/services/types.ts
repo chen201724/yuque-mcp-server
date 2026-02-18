@@ -147,3 +147,37 @@ export interface YuqueApiError {
   message: string;
   status?: number;
 }
+
+/** Data for creating a repo/book. */
+export interface CreateRepoData {
+  name: string;
+  slug: string;
+  description?: string;
+  public?: number;
+  type?: string;
+}
+
+/** Data for updating a repo/book. */
+export interface UpdateRepoData {
+  name?: string;
+  slug?: string;
+  description?: string;
+  public?: number;
+}
+
+/** Data for creating a document. */
+export interface CreateDocData {
+  title: string;
+  slug?: string;
+  body?: string;
+  format?: string;
+  public?: number;
+}
+
+/** Data for updating a document. */
+export interface UpdateDocData {
+  title?: string;
+  slug?: string;
+  body?: string;
+  public?: number;
+}
