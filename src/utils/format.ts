@@ -8,7 +8,7 @@ import type {
   YuqueGroupMember,
 } from '../services/types.js';
 
-// Format user data for AI-friendly output
+/** Format user data — strips fields that are noisy for AI consumption. */
 export function formatUser(user: YuqueUser) {
   return {
     id: user.id,
@@ -21,7 +21,7 @@ export function formatUser(user: YuqueUser) {
   };
 }
 
-// Format group data for AI-friendly output
+/** Format group data for concise AI-friendly output. */
 export function formatGroup(group: YuqueGroup) {
   return {
     id: group.id,
@@ -33,7 +33,7 @@ export function formatGroup(group: YuqueGroup) {
   };
 }
 
-// Format repo data for AI-friendly output
+/** Format repo data — converts numeric `public` field to boolean. */
 export function formatRepo(repo: YuqueRepo) {
   return {
     id: repo.id,
@@ -47,7 +47,7 @@ export function formatRepo(repo: YuqueRepo) {
   };
 }
 
-// Format doc data for AI-friendly output (without body to reduce tokens)
+/** Format doc summary — excludes body to reduce token usage. */
 export function formatDocSummary(doc: YuqueDoc) {
   return {
     id: doc.id,
@@ -60,7 +60,7 @@ export function formatDocSummary(doc: YuqueDoc) {
   };
 }
 
-// Format full doc data including body
+/** Format full doc data including body content. */
 export function formatDoc(doc: YuqueDoc) {
   return {
     ...formatDocSummary(doc),
@@ -70,7 +70,7 @@ export function formatDoc(doc: YuqueDoc) {
   };
 }
 
-// Format TOC data
+/** Format TOC items — flattens to essential navigation fields. */
 export function formatToc(items: YuqueTocItem[]) {
   return items.map((item) => ({
     title: item.title,
@@ -81,7 +81,7 @@ export function formatToc(items: YuqueTocItem[]) {
   }));
 }
 
-// Format doc version
+/** Format doc version — excludes body for list views. */
 export function formatDocVersion(version: YuqueDocVersion) {
   return {
     id: version.id,
@@ -92,7 +92,7 @@ export function formatDocVersion(version: YuqueDocVersion) {
   };
 }
 
-// Format group member
+/** Format group member with optional nested user info. */
 export function formatGroupMember(member: YuqueGroupMember) {
   return {
     id: member.id,
