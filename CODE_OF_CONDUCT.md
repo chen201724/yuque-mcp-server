@@ -18,7 +18,7 @@ Unacceptable behavior:
 
 ## Enforcement
 
-Report issues via [GitHub Issues](https://github.com/chen201724/yuque-mcp-server/issues). All complaints will be reviewed promptly.
+Report issues via [GitHub Issues](https://github.com/yuque/yuque-mcp-server/issues). All complaints will be reviewed promptly.
 
 ## Attribution
 

@@ -36,16 +36,16 @@
     "claude",
     "cursor"
   ],
-  "author": "chen201724",
+  "author": "yuque",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/chen201724/yuque-mcp-server.git"
+    "url": "https://github.com/yuque/yuque-mcp-server.git"
   },
   "bugs": {
-    "url": "https://github.com/chen201724/yuque-mcp-server/issues"
+    "url": "https://github.com/yuque/yuque-mcp-server/issues"
   },
-  "homepage": "https://github.com/chen201724/yuque-mcp-server#readme",
+  "homepage": "https://github.com/yuque/yuque-mcp-server#readme",
   "engines": {
     "node": ">=18.0.0"
   },

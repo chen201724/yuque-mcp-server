@@ -6,7 +6,7 @@ Thank you for your interest in contributing! 🎉
 
 ```bash
 # Clone and install
-git clone https://github.com/chen201724/yuque-mcp-server.git
+git clone https://github.com/yuque/yuque-mcp-server.git
 cd yuque-mcp-server
 npm install
 

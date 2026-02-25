@@ -1,12 +1,12 @@
 # Yuque MCP Server
 
-[![CI](https://github.com/chen201724/yuque-mcp-server/actions/workflows/ci.yml/badge.svg)](https://github.com/chen201724/yuque-mcp-server/actions/workflows/ci.yml)
+[![CI](https://github.com/yuque/yuque-mcp-server/actions/workflows/ci.yml/badge.svg)](https://github.com/yuque/yuque-mcp-server/actions/workflows/ci.yml)
 [![npm version](https://img.shields.io/npm/v/yuque-mcp)](https://www.npmjs.com/package/yuque-mcp)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 MCP server for [Yuque (语雀)](https://www.yuque.com/) — expose your knowledge base to AI assistants through the [Model Context Protocol](https://modelcontextprotocol.io/).
 
-🌐 **[Website](https://chen201724.github.io/yuque-ecosystem/)** · [中文文档](./README.zh-CN.md)
+🌐 **[Website](https://yuque.github.io/yuque-ecosystem/)** · [中文文档](./README.zh-CN.md)
 
 ## Quick Start
 
@@ -52,7 +52,7 @@ Ask your AI assistant to search your Yuque docs, create documents, or manage rep
 ## Development
 
 ```bash
-git clone https://github.com/chen201724/yuque-mcp-server.git
+git clone https://github.com/yuque/yuque-mcp-server.git
 cd yuque-mcp-server
 npm install
 npm test              # run tests (57 tests)
@@ -66,4 +66,4 @@ npm run dev           # dev mode with hot reload
 
 ## Links
 
-- [Website](https://chen201724.github.io/yuque-ecosystem/) · [Yuque API Docs](https://www.yuque.com/yuque/developer/api) · [MCP Protocol](https://modelcontextprotocol.io/) · [Contributing](./CONTRIBUTING.md)
+- [Website](https://yuque.github.io/yuque-ecosystem/) · [Yuque API Docs](https://www.yuque.com/yuque/developer/api) · [MCP Protocol](https://modelcontextprotocol.io/) · [Contributing](./CONTRIBUTING.md)

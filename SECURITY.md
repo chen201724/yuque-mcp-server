@@ -2,7 +2,7 @@
 
 ## Reporting a Vulnerability
 
-Please open a [security advisory](https://github.com/chen201724/yuque-mcp-server/security/advisories/new) on GitHub. Do not open public issues for security vulnerabilities.
+Please open a [security advisory](https://github.com/yuque/yuque-mcp-server/security/advisories/new) on GitHub. Do not open public issues for security vulnerabilities.
 
 ## Security Best Practices
 

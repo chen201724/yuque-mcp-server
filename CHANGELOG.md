@@ -23,5 +23,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Docker support
 - Documentation in English and Chinese
 
-[Unreleased]: https://github.com/chen201724/yuque-mcp-server/compare/v0.1.0...HEAD
-[0.1.0]: https://github.com/chen201724/yuque-mcp-server/releases/tag/v0.1.0
+[Unreleased]: https://github.com/yuque/yuque-mcp-server/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/yuque/yuque-mcp-server/releases/tag/v0.1.0
