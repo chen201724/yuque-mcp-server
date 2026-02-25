@@ -1,12 +1,12 @@
 # Yuque MCP Server
 
-[![CI](https://github.com/chen201724/yuque-mcp-server/actions/workflows/ci.yml/badge.svg)](https://github.com/chen201724/yuque-mcp-server/actions/workflows/ci.yml)
+[![CI](https://github.com/yuque/yuque-mcp-server/actions/workflows/ci.yml/badge.svg)](https://github.com/yuque/yuque-mcp-server/actions/workflows/ci.yml)
 [![npm version](https://img.shields.io/npm/v/yuque-mcp)](https://www.npmjs.com/package/yuque-mcp)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 [语雀](https://www.yuque.com/) MCP Server — 通过 [Model Context Protocol](https://modelcontextprotocol.io/) 让 AI 助手访问你的语雀知识库。
 
-🌐 **[官网](https://chen201724.github.io/yuque-ecosystem/)** · [English](./README.md)
+🌐 **[官网](https://yuque.github.io/yuque-ecosystem/)** · [English](./README.md)
 
 ## 快速开始
 
@@ -51,7 +51,7 @@ claude mcp add yuque-mcp -- npx -y yuque-mcp --token=YOUR_TOKEN
 ## 开发
 
 ```bash
-git clone https://github.com/chen201724/yuque-mcp-server.git
+git clone https://github.com/yuque/yuque-mcp-server.git
 cd yuque-mcp-server
 npm install
 npm test              # 运行测试（57 个测试用例）
@@ -65,4 +65,4 @@ npm run dev           # 开发模式
 
 ## 链接
 
-- [官网](https://chen201724.github.io/yuque-ecosystem/) · [语雀 API 文档](https://www.yuque.com/yuque/developer/api) · [MCP 协议](https://modelcontextprotocol.io/) · [贡献指南](./CONTRIBUTING.md)
+- [官网](https://yuque.github.io/yuque-ecosystem/) · [语雀 API 文档](https://www.yuque.com/yuque/developer/api) · [MCP 协议](https://modelcontextprotocol.io/) · [贡献指南](./CONTRIBUTING.md)
