@@ -28,7 +28,7 @@ describe('repoTools', () => {
 
     it('should list group repos', async () => {
       (mockClient.listGroupRepos as ReturnType<typeof vi.fn>).mockResolvedValue([mockRepo]);
-      const result = await repoTools.yuque_list_repos.handler(mockClient, { login: 'grp', type: 'group' } as never);
+      await repoTools.yuque_list_repos.handler(mockClient, { login: 'grp', type: 'group' } as never);
       expect(mockClient.listGroupRepos).toHaveBeenCalledWith('grp');
     });
   });
