@@ -146,6 +146,21 @@ claude mcp add yuque-mcp -- npx -y yuque-mcp
 
 </details>
 
+<details>
+<summary><b>Trae</b></summary>
+
+在 Trae 中，打开 **设置**，进入 **MCP** 部分，添加一个 stdio 类型的 MCP Server，配置如下：
+
+- **Command:** `npx`
+- **Args:** `-y yuque-mcp`
+- **Env:** `YUQUE_PERSONAL_TOKEN=YOUR_TOKEN`
+
+详见 [Trae MCP 文档](https://docs.trae.ai/ide/model-context-protocol)。
+
+</details>
+
+> **更多客户端：** 任何支持 stdio 传输的 MCP 客户端均可使用 yuque-mcp。通用配置：command = `npx`，args = `["-y", "yuque-mcp"]`，env = `YUQUE_PERSONAL_TOKEN`。
+
 ### 3. 开始使用！
 
 让 AI 助手搜索语雀文档、创建文档、管理知识库。

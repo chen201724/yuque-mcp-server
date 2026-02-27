@@ -146,6 +146,21 @@ Add to your Cline MCP settings (`~/Library/Application Support/Code/User/globalS
 
 </details>
 
+<details>
+<summary><b>Trae</b></summary>
+
+In Trae, open **Settings** and navigate to the **MCP** section, then add a new stdio-type MCP Server with the following configuration:
+
+- **Command:** `npx`
+- **Args:** `-y yuque-mcp`
+- **Env:** `YUQUE_PERSONAL_TOKEN=YOUR_TOKEN`
+
+See [Trae MCP documentation](https://docs.trae.ai/ide/model-context-protocol) for detailed instructions.
+
+</details>
+
+> **More clients:** Any MCP-compatible client that supports stdio transport can use yuque-mcp. The general pattern is: command = `npx`, args = `["-y", "yuque-mcp"]`, env = `YUQUE_PERSONAL_TOKEN`.
+
 ### 3. Done!
 
 Ask your AI assistant to search your Yuque docs, create documents, or manage books.
