@@ -16,7 +16,28 @@
 
 前往 [语雀开发者设置](https://www.yuque.com/settings/tokens) 创建个人访问令牌。
 
-### 2. 添加到 MCP 客户端
+### 2. 快速安装（推荐）
+
+使用内置 CLI 命令一键配置 MCP 客户端：
+
+```bash
+npx yuque-mcp install --token=YOUR_TOKEN --client=cursor
+```
+
+支持的客户端：`claude-desktop`、`vscode`、`cursor`、`windsurf`、`cline`、`trae`
+
+或使用交互式安装向导：
+
+```bash
+npx yuque-mcp setup
+```
+
+CLI 会自动找到对应操作系统的配置文件路径，与已有配置合并（不会覆盖其他服务器），并打印成功信息。
+
+### 3. 手动配置
+
+<details>
+<summary>偏好手动配置？点击展开所有客户端配置。</summary>
 
 选择你使用的客户端：
 
@@ -161,7 +182,9 @@ claude mcp add yuque-mcp -- npx -y yuque-mcp
 
 > **更多客户端：** 任何支持 stdio 传输的 MCP 客户端均可使用 yuque-mcp。通用配置：command = `npx`，args = `["-y", "yuque-mcp"]`，env = `YUQUE_PERSONAL_TOKEN`。
 
-### 3. 开始使用！
+</details>
+
+### 4. 开始使用！
 
 让 AI 助手搜索语雀文档、创建文档、管理知识库。
 
