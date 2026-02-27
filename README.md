@@ -6,40 +6,166 @@
 
 MCP server for [Yuque (语雀)](https://www.yuque.com/) — expose your knowledge base to AI assistants through the [Model Context Protocol](https://modelcontextprotocol.io/).
 
-🌐 **[Website](https://yuque.github.io/yuque-ecosystem/)** · [中文文档](./README.zh-CN.md)
+🌐 **[Website](https://yuque.github.io/yuque-ecosystem/)** · 📖 [API Docs](https://www.yuque.com/yuque/developer/api) · [中文文档](./README.zh-CN.md)
+
+---
 
 ## Quick Start
 
 ### 1. Get Your Yuque API Token
 
-Visit [Yuque Developer Settings](https://www.yuque.com/settings/tokens) to create a personal token.
+Visit [Yuque Developer Settings](https://www.yuque.com/settings/tokens) to create a personal access token.
 
 ### 2. Add to Your MCP Client
 
-#### Claude Code
+Choose your preferred client below:
+
+<details open>
+<summary><b>Claude Code</b></summary>
 
 ```bash
 claude mcp add yuque-mcp -- npx -y yuque-mcp --token=YOUR_TOKEN
 ```
 
-Or set environment variable (choose one):
+Or using environment variables:
 
 ```bash
-# For personal token
 export YUQUE_PERSONAL_TOKEN=YOUR_TOKEN
-
-# For group/team token
-export YUQUE_GROUP_TOKEN=YOUR_TOKEN
-
-# Legacy (still supported)
-export YUQUE_TOKEN=YOUR_TOKEN
-
 claude mcp add yuque-mcp -- npx -y yuque-mcp
 ```
 
+</details>
+
+<details>
+<summary><b>Claude Desktop</b></summary>
+
+Add to your `claude_desktop_config.json`:
+
+- macOS: `~/Library/Application Support/Claude/claude_desktop_config.json`
+- Windows: `%APPDATA%\Claude\claude_desktop_config.json`
+
+```json
+{
+  "mcpServers": {
+    "yuque": {
+      "command": "npx",
+      "args": ["-y", "yuque-mcp"],
+      "env": {
+        "YUQUE_PERSONAL_TOKEN": "YOUR_TOKEN"
+      }
+    }
+  }
+}
+```
+
+</details>
+
+<details>
+<summary><b>VS Code (GitHub Copilot)</b></summary>
+
+Add to `.vscode/mcp.json` in your workspace:
+
+```json
+{
+  "servers": {
+    "yuque": {
+      "command": "npx",
+      "args": ["-y", "yuque-mcp"],
+      "env": {
+        "YUQUE_PERSONAL_TOKEN": "YOUR_TOKEN"
+      }
+    }
+  }
+}
+```
+
+Then enable Agent mode in GitHub Copilot Chat.
+
+</details>
+
+<details>
+<summary><b>Cursor</b></summary>
+
+Add to your Cursor MCP configuration (`~/.cursor/mcp.json`):
+
+```json
+{
+  "mcpServers": {
+    "yuque": {
+      "command": "npx",
+      "args": ["-y", "yuque-mcp"],
+      "env": {
+        "YUQUE_PERSONAL_TOKEN": "YOUR_TOKEN"
+      }
+    }
+  }
+}
+```
+
+</details>
+
+<details>
+<summary><b>Windsurf</b></summary>
+
+Add to your Windsurf MCP configuration (`~/.windsurf/mcp.json`):
+
+```json
+{
+  "mcpServers": {
+    "yuque": {
+      "command": "npx",
+      "args": ["-y", "yuque-mcp"],
+      "env": {
+        "YUQUE_PERSONAL_TOKEN": "YOUR_TOKEN"
+      }
+    }
+  }
+}
+```
+
+</details>
+
+<details>
+<summary><b>Cline (VS Code)</b></summary>
+
+Add to your Cline MCP settings (`~/Library/Application Support/Code/User/globalStorage/saoudrizwan.claude-dev/settings/cline_mcp_settings.json`):
+
+```json
+{
+  "mcpServers": {
+    "yuque": {
+      "command": "npx",
+      "args": ["-y", "yuque-mcp"],
+      "env": {
+        "YUQUE_PERSONAL_TOKEN": "YOUR_TOKEN"
+      }
+    }
+  }
+}
+```
+
+</details>
+
 ### 3. Done!
 
-Ask your AI assistant to search your Yuque docs, create documents, or manage repos.
+Ask your AI assistant to search your Yuque docs, create documents, or manage books.
+
+---
+
+## Authentication
+
+The server supports multiple ways to provide your Yuque API token:
+
+| Method | Environment Variable / Flag | Description |
+|--------|---------------------------|-------------|
+| **Personal Token** (recommended) | `YUQUE_PERSONAL_TOKEN` | For accessing your personal Yuque account |
+| **Group Token** | `YUQUE_GROUP_TOKEN` | For accessing a Yuque group |
+| **Legacy Token** | `YUQUE_TOKEN` | Backward-compatible, works the same |
+| **CLI Argument** | `--token=YOUR_TOKEN` | Pass directly as a command-line argument |
+
+**Priority order:** `YUQUE_PERSONAL_TOKEN` > `YUQUE_GROUP_TOKEN` > `YUQUE_TOKEN` > `--token`
+
+---
 
 ## Available Tools (25)
 
@@ -47,7 +173,7 @@ Ask your AI assistant to search your Yuque docs, create documents, or manage rep
 |----------|-------|
 | **User** | `yuque_get_user`, `yuque_list_groups` |
 | **Search** | `yuque_search` |
-| **Repos** | `yuque_list_repos`, `yuque_get_repo`, `yuque_create_repo`, `yuque_update_repo`, `yuque_delete_repo` |
+| **Books** | `yuque_list_repos`, `yuque_get_repo`, `yuque_create_repo`, `yuque_update_repo`, `yuque_delete_repo` |
 | **Docs** | `yuque_list_docs`, `yuque_get_doc`, `yuque_create_doc`, `yuque_update_doc`, `yuque_delete_doc` |
 | **TOC** | `yuque_get_toc`, `yuque_update_toc` |
 | **Versions** | `yuque_list_doc_versions`, `yuque_get_doc_version` |
@@ -55,14 +181,19 @@ Ask your AI assistant to search your Yuque docs, create documents, or manage rep
 | **Stats** | `yuque_group_stats`, `yuque_group_member_stats`, `yuque_group_book_stats`, `yuque_group_doc_stats` |
 | **Utility** | `yuque_hello` |
 
+---
+
 ## Troubleshooting
 
 | Error | Solution |
 |-------|----------|
-| `YUQUE_PERSONAL_TOKEN is required` | Pass `--token=YOUR_TOKEN` or set one of: `YUQUE_PERSONAL_TOKEN`, `YUQUE_GROUP_TOKEN`, or `YUQUE_TOKEN` |
+| `YUQUE_PERSONAL_TOKEN is required` | Set one of the environment variables (`YUQUE_PERSONAL_TOKEN`, `YUQUE_GROUP_TOKEN`, or `YUQUE_TOKEN`) or pass `--token=YOUR_TOKEN` |
 | `401 Unauthorized` | Token is invalid or expired — regenerate at [Yuque Settings](https://www.yuque.com/settings/tokens) |
-| `429 Rate Limited` | Wait a moment and retry |
-| Tool not found | Update to latest: `npx -y yuque-mcp@latest` |
+| `429 Rate Limited` | Too many requests — wait a moment and retry |
+| Tool not found | Update to the latest version: `npx -y yuque-mcp@latest` |
+| `npx` command not found | Install [Node.js](https://nodejs.org/) (v18 or later) |
+
+---
 
 ## Development
 
@@ -70,15 +201,21 @@ Ask your AI assistant to search your Yuque docs, create documents, or manage rep
 git clone https://github.com/yuque/yuque-mcp-server.git
 cd yuque-mcp-server
 npm install
-npm test              # run tests (57 tests)
+npm test              # run tests
 npm run build         # compile TypeScript
 npm run dev           # dev mode with hot reload
 ```
 
-## License
-
-[MIT](./LICENSE)
+---
 
 ## Links
 
-- [Website](https://yuque.github.io/yuque-ecosystem/) · [Yuque API Docs](https://www.yuque.com/yuque/developer/api) · [MCP Protocol](https://modelcontextprotocol.io/) · [Contributing](./CONTRIBUTING.md)
+- [Website](https://yuque.github.io/yuque-ecosystem/)
+- [Yuque API Docs](https://www.yuque.com/yuque/developer/api)
+- [MCP Protocol](https://modelcontextprotocol.io/)
+- [MCP Registry](https://github.com/modelcontextprotocol/servers)
+- [Contributing](./CONTRIBUTING.md)
+
+## License
+
+[MIT](./LICENSE)
