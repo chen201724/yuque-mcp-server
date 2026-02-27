@@ -22,6 +22,13 @@
 claude mcp add yuque-mcp -- npx -y yuque-mcp --token=YOUR_TOKEN
 ```
 
+或设置环境变量：
+
+```bash
+export YUQUE_PERSONAL_TOKEN=YOUR_TOKEN
+claude mcp add yuque-mcp -- npx -y yuque-mcp
+```
+
 ### 3. 开始使用！
 
 让 AI 助手搜索语雀文档、创建文档、管理知识库。
@@ -44,7 +51,7 @@ claude mcp add yuque-mcp -- npx -y yuque-mcp --token=YOUR_TOKEN
 
 | 错误 | 解决方案 |
 |------|----------|
-| `YUQUE_TOKEN is required` | 传入 `--token=YOUR_TOKEN` 或设置 `YUQUE_TOKEN` 环境变量 |
+| `YUQUE_PERSONAL_TOKEN is required` | 传入 `--token=YOUR_TOKEN` 或设置 `YUQUE_PERSONAL_TOKEN`（或 `YUQUE_TOKEN`）环境变量 |
 | `401 Unauthorized` | Token 无效或过期 — 到[语雀设置](https://www.yuque.com/settings/tokens)重新生成 |
 | `429 Rate Limited` | 请求过于频繁，等待后重试 |
 

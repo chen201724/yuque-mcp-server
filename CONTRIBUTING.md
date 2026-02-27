@@ -109,7 +109,7 @@ Build and run with Docker:
 
 ```bash
 docker build -t yuque-mcp .
-docker run --rm -i -e YUQUE_TOKEN=your_token yuque-mcp
+docker run --rm -i -e YUQUE_PERSONAL_TOKEN=your_token yuque-mcp
 ```
 
 ## Questions?

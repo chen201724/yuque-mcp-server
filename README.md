@@ -22,6 +22,13 @@ Visit [Yuque Developer Settings](https://www.yuque.com/settings/tokens) to creat
 claude mcp add yuque-mcp -- npx -y yuque-mcp --token=YOUR_TOKEN
 ```
 
+Or set environment variable:
+
+```bash
+export YUQUE_PERSONAL_TOKEN=YOUR_TOKEN
+claude mcp add yuque-mcp -- npx -y yuque-mcp
+```
+
 ### 3. Done!
 
 Ask your AI assistant to search your Yuque docs, create documents, or manage repos.
@@ -44,7 +51,7 @@ Ask your AI assistant to search your Yuque docs, create documents, or manage rep
 
 | Error | Solution |
 |-------|----------|
-| `YUQUE_TOKEN is required` | Pass `--token=YOUR_TOKEN` or set `YUQUE_TOKEN` env var |
+| `YUQUE_PERSONAL_TOKEN is required` | Pass `--token=YOUR_TOKEN` or set `YUQUE_PERSONAL_TOKEN` (or `YUQUE_TOKEN`) env var |
 | `401 Unauthorized` | Token is invalid or expired — regenerate at [Yuque Settings](https://www.yuque.com/settings/tokens) |
 | `429 Rate Limited` | Wait a moment and retry |
 | Tool not found | Update to latest: `npx -y yuque-mcp@latest` |
