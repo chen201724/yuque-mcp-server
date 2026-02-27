@@ -1,7 +1,7 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.yuque/yuque-mcp",
-  "description": "MCP server for Yuque (语雀) — expose your knowledge base to AI assistants. Supports document CRUD, search, repo management, team collaboration, and statistics.",
+  "description": "MCP server for Yuque — expose your knowledge base to AI assistants.",
   "repository": {
     "url": "https://github.com/yuque/yuque-mcp-server",
     "source": "github"
