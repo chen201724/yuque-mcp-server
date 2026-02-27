@@ -16,7 +16,28 @@ MCP server for [Yuque (语雀)](https://www.yuque.com/) — expose your knowledg
 
 Visit [Yuque Developer Settings](https://www.yuque.com/settings/tokens) to create a personal access token.
 
-### 2. Add to Your MCP Client
+### 2. Quick Install (Recommended)
+
+Use the built-in CLI to auto-configure your MCP client in one command:
+
+```bash
+npx yuque-mcp install --token=YOUR_TOKEN --client=cursor
+```
+
+Supported clients: `claude-desktop`, `vscode`, `cursor`, `windsurf`, `cline`, `trae`
+
+Or use the interactive setup wizard:
+
+```bash
+npx yuque-mcp setup
+```
+
+The CLI will automatically find the correct config file for your OS, merge with any existing configuration (without overwriting other servers), and print a success message.
+
+### 3. Manual Configuration
+
+<details>
+<summary>Prefer to configure manually? Click to expand all client configs.</summary>
 
 Choose your preferred client below:
 
@@ -161,7 +182,9 @@ See [Trae MCP documentation](https://docs.trae.ai/ide/model-context-protocol) fo
 
 > **More clients:** Any MCP-compatible client that supports stdio transport can use yuque-mcp. The general pattern is: command = `npx`, args = `["-y", "yuque-mcp"]`, env = `YUQUE_PERSONAL_TOKEN`.
 
-### 3. Done!
+</details>
+
+### 4. Done!
 
 Ask your AI assistant to search your Yuque docs, create documents, or manage books.
 
