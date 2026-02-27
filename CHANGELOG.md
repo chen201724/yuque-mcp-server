@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Changed
-- Support `YUQUE_PERSONAL_TOKEN` as primary environment variable (with `YUQUE_TOKEN` as fallback for backward compatibility)
+- Support `YUQUE_PERSONAL_TOKEN` and `YUQUE_GROUP_TOKEN` as primary environment variables (with `YUQUE_TOKEN` as fallback for backward compatibility)
 - Update error messages to reflect new environment variable naming
 
 ## [0.1.0] - 2025-02-15
