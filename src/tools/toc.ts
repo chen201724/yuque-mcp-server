@@ -24,12 +24,17 @@ export const tocTools = {
   },
 
   yuque_update_toc: {
-    description: 'Update the table of contents (TOC) for a repo/book',
+    description:
+      'Update the table of contents (TOC) for a repo/book. The toc_data must be a single-operation JSON object (not an array). Required fields: "action" (e.g. "appendNode"), "action_mode" ("child" or "sibling"), "target_uuid" (empty string for root level). For new nodes: include "type" ("TITLE" or "DOC") and "title". To move existing nodes: use "node_uuid" instead. Example: {"action":"appendNode","action_mode":"child","target_uuid":"","type":"TITLE","title":"New Section"}',
     inputSchema: z.object({
       repo_id: z
         .union([z.string(), z.number()])
         .describe('Repo ID or namespace (e.g., "mygroup/mybook")'),
-      toc_data: z.string().describe('TOC data as JSON string'),
+      toc_data: z
+        .string()
+        .describe(
+          'Single-operation JSON object. Must include "action" (e.g. "appendNode"), "action_mode" ("child"|"sibling"), "target_uuid" (empty string = root). For new nodes add "type"+"title"; to move existing nodes use "node_uuid".'
+        ),
     }),
     handler: async (client: YuqueClient, args: { repo_id: string | number; toc_data: string }) => {
       const toc = await client.updateToc(args.repo_id, args.toc_data);

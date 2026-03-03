@@ -8,6 +8,7 @@ const mockClient = {
   createDoc: vi.fn(),
   updateDoc: vi.fn(),
   deleteDoc: vi.fn(),
+  updateToc: vi.fn(),
 } as unknown as YuqueClient;
 
 beforeEach(() => vi.clearAllMocks());
@@ -57,6 +58,32 @@ describe('docTools', () => {
       const parsed = JSON.parse(result.content[0].text);
       expect(parsed).toHaveProperty('title', 'New Doc');
       expect(mockClient.createDoc).toHaveBeenCalledWith(1, expect.objectContaining({ title: 'New Doc', body: 'Content' }));
+    });
+
+    it('should auto-append created doc to TOC', async () => {
+      (mockClient.createDoc as ReturnType<typeof vi.fn>).mockResolvedValue({
+        id: 2, slug: 'new-doc', title: 'New Doc', body: 'Content',
+        format: 'markdown', created_at: '2024-01-01', updated_at: '2024-01-01', word_count: 1,
+      });
+      (mockClient.updateToc as ReturnType<typeof vi.fn>).mockResolvedValue([]);
+      const result = await docTools.yuque_create_doc.handler(mockClient, {
+        repo_id: 1, title: 'New Doc', body: 'Content',
+      } as never);
+      expect(mockClient.updateToc).toHaveBeenCalledWith(1, expect.stringContaining('"appendNode"'));
+      expect(result.content).toHaveLength(1); // no warning
+    });
+
+    it('should return warning when TOC append fails', async () => {
+      (mockClient.createDoc as ReturnType<typeof vi.fn>).mockResolvedValue({
+        id: 3, slug: 'doc3', title: 'Doc 3', body: '',
+        format: 'markdown', created_at: '2024-01-01', updated_at: '2024-01-01', word_count: 0,
+      });
+      (mockClient.updateToc as ReturnType<typeof vi.fn>).mockRejectedValue(new Error('TOC error'));
+      const result = await docTools.yuque_create_doc.handler(mockClient, {
+        repo_id: 1, title: 'Doc 3',
+      } as never);
+      expect(result.content).toHaveLength(2); // doc + warning
+      expect(result.content[1].text).toContain('failed to auto-append to TOC');
     });
   });
 

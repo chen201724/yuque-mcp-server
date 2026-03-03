@@ -2,6 +2,26 @@ import { z } from 'zod';
 import type { YuqueClient } from '../services/yuque-client.js';
 import { formatDocSummary, formatDoc } from '../utils/format.js';
 
+async function appendDocToToc(
+  client: YuqueClient,
+  repoId: string | number,
+  docId: number
+): Promise<string | null> {
+  try {
+    const tocData = JSON.stringify({
+      action: 'appendNode',
+      action_mode: 'child',
+      target_uuid: '',
+      type: 'DOC',
+      doc_id: docId,
+    });
+    await client.updateToc(repoId, tocData);
+    return null; // success
+  } catch {
+    return 'Document created successfully but failed to auto-append to TOC. Use yuque_update_toc to add it manually.';
+  }
+}
+
 export const docTools = {
   yuque_list_docs: {
     description: 'List all documents in a repo/book',
@@ -80,14 +100,17 @@ export const docTools = {
         public: args.public,
       };
       const doc = await client.createDoc(args.repo_id, data);
-      return {
-        content: [
-          {
-            type: 'text' as const,
-            text: JSON.stringify(formatDoc(doc), null, 2),
-          },
-        ],
-      };
+
+      // Auto-append to TOC
+      const tocWarning = await appendDocToToc(client, args.repo_id, doc.id);
+
+      const result: { type: 'text'; text: string }[] = [
+        { type: 'text' as const, text: JSON.stringify(formatDoc(doc), null, 2) },
+      ];
+      if (tocWarning) {
+        result.push({ type: 'text' as const, text: tocWarning });
+      }
+      return { content: result };
     },
   },
 
