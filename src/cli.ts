@@ -41,7 +41,7 @@ if (handleCliSubcommands(process.argv)) {
 
     npx yuque-mcp setup
 
-  📖 支持的客户端: vscode, cursor, windsurf, claude-desktop, trae, cline
+  📖 支持的客户端: vscode, cursor, windsurf, claude-desktop, trae, cline, qoder, opencode
 
   🔗 更多信息: https://github.com/yuque/yuque-mcp-server
 `);

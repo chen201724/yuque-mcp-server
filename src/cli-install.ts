@@ -5,12 +5,14 @@ import * as readline from 'node:readline';
 
 // ─── Client Definitions ───────────────────────────────────────────────
 
-type ClientId = 'claude-desktop' | 'vscode' | 'cursor' | 'windsurf' | 'cline' | 'trae';
+type ClientId = 'claude-desktop' | 'vscode' | 'cursor' | 'windsurf' | 'cline' | 'trae' | 'qoder' | 'opencode';
 
 interface ClientConfig {
   name: string;
-  configKey: 'mcpServers' | 'servers';
+  configKey: 'mcpServers' | 'servers' | 'mcp';
   getConfigPath: () => string;
+  /** Custom function to build the server entry for this client (if different from the default). */
+  buildEntry?: (token: string) => Record<string, unknown>;
 }
 
 function getAppDataPath(): string {
@@ -125,6 +127,30 @@ const CLIENT_CONFIGS: Record<ClientId, ClientConfig> = {
       }
     },
   },
+  qoder: {
+    name: 'Qoder',
+    configKey: 'mcpServers',
+    getConfigPath() {
+      return path.join(os.homedir(), '.qoder', 'mcp.json');
+    },
+  },
+  opencode: {
+    name: 'OpenCode',
+    configKey: 'mcp',
+    getConfigPath() {
+      return path.join(process.cwd(), 'opencode.json');
+    },
+    buildEntry(token: string) {
+      return {
+        type: 'local',
+        command: ['npx', '-y', 'yuque-mcp'],
+        environment: {
+          YUQUE_PERSONAL_TOKEN: token,
+        },
+        enabled: true,
+      };
+    },
+  },
 };
 
 // ─── Config Generation ────────────────────────────────────────────────
@@ -191,7 +217,9 @@ export function installToClient(options: InstallOptions): string {
 
   // Inject/update the yuque entry
   const serversObj = config[configKey] as Record<string, unknown>;
-  serversObj['yuque'] = buildServerEntry(options.token);
+  serversObj['yuque'] = clientConfig.buildEntry
+    ? clientConfig.buildEntry(options.token)
+    : buildServerEntry(options.token);
 
   // Create parent directories if needed
   const dir = path.dirname(configPath);
