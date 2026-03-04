@@ -25,7 +25,7 @@ function mockConfigPath(client: string, configPath: string) {
 }
 
 describe('getSupportedClients', () => {
-  it('should return all 6 supported clients', () => {
+  it('should return all 8 supported clients', () => {
     const clients = getSupportedClients();
     expect(clients).toContain('claude-desktop');
     expect(clients).toContain('vscode');
@@ -33,7 +33,9 @@ describe('getSupportedClients', () => {
     expect(clients).toContain('windsurf');
     expect(clients).toContain('cline');
     expect(clients).toContain('trae');
-    expect(clients.length).toBe(6);
+    expect(clients).toContain('qoder');
+    expect(clients).toContain('opencode');
+    expect(clients.length).toBe(8);
   });
 });
 
@@ -269,6 +271,81 @@ describe('installToClient', () => {
 
     const content = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
     expect(content.mcpServers.yuque).toBeDefined();
+  });
+
+  it('should work for qoder client', () => {
+    const configPath = path.join(tmpDir, 'qoder', 'mcp.json');
+    mockConfigPath('qoder', configPath);
+
+    installToClient({ token: 'qoder-tok', client: 'qoder' });
+
+    const content = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
+    expect(content.mcpServers.yuque).toBeDefined();
+    expect(content.mcpServers.yuque.command).toBe('npx');
+    expect(content.mcpServers.yuque.env.YUQUE_PERSONAL_TOKEN).toBe('qoder-tok');
+  });
+
+  it('should work for opencode client with custom format', () => {
+    const configPath = path.join(tmpDir, 'opencode', 'opencode.json');
+    mockConfigPath('opencode', configPath);
+
+    installToClient({ token: 'opencode-tok', client: 'opencode' });
+
+    const content = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
+    expect(content.mcp.yuque).toBeDefined();
+    expect(content.mcp.yuque).toEqual({
+      type: 'local',
+      command: ['npx', '-y', 'yuque-mcp'],
+      environment: {
+        YUQUE_PERSONAL_TOKEN: 'opencode-tok',
+      },
+      enabled: true,
+    });
+    // Should NOT have mcpServers key
+    expect(content.mcpServers).toBeUndefined();
+  });
+
+  it('should merge opencode config with existing settings', () => {
+    const configPath = path.join(tmpDir, 'opencode-merge', 'opencode.json');
+    fs.mkdirSync(path.dirname(configPath), { recursive: true });
+    fs.writeFileSync(
+      configPath,
+      JSON.stringify(
+        {
+          '$schema': 'https://opencode.ai/config.json',
+          model: 'anthropic/claude-sonnet-4-5',
+          mcp: {
+            'other-server': {
+              type: 'local',
+              command: ['npx', '-y', 'other-mcp'],
+              enabled: true,
+            },
+          },
+        },
+        null,
+        2
+      ),
+      'utf-8'
+    );
+
+    mockConfigPath('opencode', configPath);
+    installToClient({ token: 'oc-merge-tok', client: 'opencode' });
+
+    const content = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
+    // Existing settings preserved
+    expect(content['$schema']).toBe('https://opencode.ai/config.json');
+    expect(content.model).toBe('anthropic/claude-sonnet-4-5');
+    // Existing MCP server preserved
+    expect(content.mcp['other-server']).toBeDefined();
+    // Yuque added
+    expect(content.mcp.yuque).toEqual({
+      type: 'local',
+      command: ['npx', '-y', 'yuque-mcp'],
+      environment: {
+        YUQUE_PERSONAL_TOKEN: 'oc-merge-tok',
+      },
+      enabled: true,
+    });
   });
 
   it('should merge into vscode config with existing servers', () => {
