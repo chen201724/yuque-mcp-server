@@ -26,6 +26,8 @@
     "format:check": "prettier --check \"src/**/*.ts\" \"tests/**/*.ts\"",
     "typecheck": "tsc --noEmit",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
+    "version": "npm run changelog && git add CHANGELOG.md",
+    "release:publish": "git push && git push --tags && npm publish",
     "prepublishOnly": "npm run build"
   },
   "keywords": [

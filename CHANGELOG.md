@@ -5,15 +5,111 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [0.1.9] - 2026-03-18
 
-### Changed
-- Support `YUQUE_PERSONAL_TOKEN` and `YUQUE_GROUP_TOKEN` as primary environment variables (with `YUQUE_TOKEN` as fallback for backward compatibility)
-- Update error messages to reflect new environment variable naming
+### 🐞 Bug Fixes
 
-## [0.1.0] - 2025-02-15
+- Make search type parameter required with enum validation (#43)
 
-### Added
+## [0.1.8] - 2026-03-18
+
+### ✨ Features
+
+- Add yuque notes (小记) support (#22)
+
+### 🐞 Bug Fixes
+
+- Restore auto-append to TOC with graceful error handling (#31)
+- Improve TOC error message to suggest manual web UI operation (#33)
+- Add 30s request timeout to prevent hanging on slow API responses (#35)
+- Add null safety to search results and improve error handling (#36)
+
+### 🔨 Refactors
+
+- Remove dangerous delete operations and improve notes support (#34)
+- Slim to 16 personal-only tools and rename repo to book (#41)
+
+### 📝 Documentation
+
+- Update README with latest tools, remove legacy token, add 410 error (#37)
+- Sync Chinese README and remove yuque_restore_note tool (#38)
+
+### 🏡 Chore
+
+- Add issue/PR templates and changelog setup (#42)
+
+## [0.1.7] - 2026-03-04
+
+### ✨ Features
+
+- Add qoder and opencode client support for install command (#24)
+
+## [0.1.6] - 2026-03-03
+
+### ✨ Features
+
+- Auto-append doc to TOC on create and improve TOC tool descriptions (#23)
+
+## [0.1.5] - 2026-02-27
+
+### ✨ Features
+
+- Add install and setup CLI commands for quick MCP client configuration (#16)
+
+### 🐞 Bug Fixes
+
+- Show helpful guide when run directly in terminal (#17)
+
+### 📝 Documentation
+
+- Rewrite README with multi-client installation guides (#15)
+
+## [0.1.4] - 2026-02-27
+
+### ✨ Features
+
+- Support YUQUE_PERSONAL_TOKEN as primary env var (#13)
+- Add server.json and mcpName for MCP Registry (#14)
+
+### 🐞 Bug Fixes
+
+- Shorten server.json description to fit 100-char limit
+
+### 🏡 Chore
+
+- Update org links from chen201724 to yuque (#10)
+
+## [0.1.3] - 2026-02-25
+
+### 🐞 Bug Fixes
+
+- Remove unused variable in repo test (#9)
+
+### 🔨 Refactors
+
+- Code polish and quality improvements (#8)
+
+## [0.1.2] - 2026-02-17
+
+### 📝 Documentation
+
+- Simplify MCP setup by keeping Claude Code example only
+- Add ecosystem website link to README
+
+## [0.1.1] - 2026-02-15
+
+### 🐞 Bug Fixes
+
+- Convert Zod schemas to JSON Schema for MCP compatibility (#5)
+
+### 📝 Documentation
+
+- Streamline README with verified-only setup paths (#6)
+
+## [0.1.0] - 2026-02-15
+
+### ✨ Features
+
 - Initial release of Yuque MCP Server
 - 25 tools covering Yuque API (user, repo, doc, toc, search, group, stats, version)
 - Stdio transport for local MCP clients (Claude Desktop, Cursor, Claude Code)
@@ -25,7 +121,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - ESLint + Prettier code quality tooling
 - CI pipeline (Node 18/20/22)
 - Docker support
-- Documentation in English and Chinese
 
-[Unreleased]: https://github.com/yuque/yuque-mcp-server/compare/v0.1.0...HEAD
+### 🐞 Bug Fixes
+
+- Pre-release polish — fix placeholders, entry point, README (#2)
+- Test config and CI pipeline fixes (#1)
+
+### 📝 Documentation
+
+- Add Docker support and improve CONTRIBUTING guide
+
+[0.1.9]: https://github.com/yuque/yuque-mcp-server/compare/v0.1.8...v0.1.9
+[0.1.8]: https://github.com/yuque/yuque-mcp-server/compare/v0.1.7...v0.1.8
+[0.1.7]: https://github.com/yuque/yuque-mcp-server/compare/v0.1.6...v0.1.7
+[0.1.6]: https://github.com/yuque/yuque-mcp-server/compare/v0.1.5...v0.1.6
+[0.1.5]: https://github.com/yuque/yuque-mcp-server/compare/v0.1.4...v0.1.5
+[0.1.4]: https://github.com/yuque/yuque-mcp-server/compare/v0.1.3...v0.1.4
+[0.1.3]: https://github.com/yuque/yuque-mcp-server/compare/v0.1.2...v0.1.3
+[0.1.2]: https://github.com/yuque/yuque-mcp-server/compare/v0.1.1...v0.1.2
+[0.1.1]: https://github.com/yuque/yuque-mcp-server/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/yuque/yuque-mcp-server/releases/tag/v0.1.0
