@@ -72,12 +72,4 @@ describe('repoTools', () => {
       expect(mockClient.updateRepo).toHaveBeenCalledWith(1, expect.objectContaining({ name: 'Updated' }));
     });
   });
-
-  describe('yuque_delete_repo', () => {
-    it('should delete repo', async () => {
-      (mockClient.deleteRepo as ReturnType<typeof vi.fn>).mockResolvedValue(undefined);
-      const result = await repoTools.yuque_delete_repo.handler(mockClient, { id_or_namespace: 1 } as never);
-      expect(result.content[0].text).toContain('deleted successfully');
-    });
-  });
 });

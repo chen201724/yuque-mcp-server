@@ -283,10 +283,13 @@ export class YuqueClient {
 
   // ── Note APIs ──────────────────────────────────────────────
 
-  /** List all notes (小记) for the current user. */
-  async listNotes(status?: number): Promise<YuqueNotesResponse> {
+  /** List all notes (小记) for the current user with pagination. */
+  async listNotes(status?: number, page?: number, limit?: number): Promise<YuqueNotesResponse> {
     return withErrorHandling(async () => {
-      const params = status !== undefined ? { status } : {};
+      const params: Record<string, number> = {};
+      if (status !== undefined) params.status = status;
+      if (page !== undefined) params.page = page;
+      if (limit !== undefined) params.limit = limit;
       const r = await this.client.get<YuqueApiResponse<YuqueNotesResponse>>('/notes', { params });
       return r.data.data;
     });
@@ -309,10 +312,10 @@ export class YuqueClient {
   }
 
   /** Update an existing note. */
-  async updateNote(noteId: number, data: UpdateNoteData): Promise<YuqueNote> {
+  async updateNote(noteId: number, data: CreateNoteData): Promise<YuqueNote> {
     return withErrorHandling(async () => {
-      const r = await this.client.put<{ data: { data: YuqueNote } }>(`/notes/${noteId}`, data);
-      return r.data.data.data;
+      const r = await this.client.put<YuqueApiResponse<YuqueNote>>(`/notes/${noteId}`, data);
+      return r.data.data;
     });
   }
 

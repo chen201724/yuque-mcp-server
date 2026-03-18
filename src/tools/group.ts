@@ -44,22 +44,4 @@ export const groupTools = {
     },
   },
 
-  yuque_remove_group_member: {
-    description: 'Remove a member from a group/team',
-    inputSchema: z.object({
-      login: z.string().describe('Group login name'),
-      user_id: z.number().describe('User ID to remove'),
-    }),
-    handler: async (client: YuqueClient, args: { login: string; user_id: number }) => {
-      await client.removeGroupMember(args.login, args.user_id);
-      return {
-        content: [
-          {
-            type: 'text' as const,
-            text: 'Group member removed successfully',
-          },
-        ],
-      };
-    },
-  },
 };

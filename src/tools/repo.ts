@@ -129,23 +129,4 @@ export const repoTools = {
     },
   },
 
-  yuque_delete_repo: {
-    description: 'Delete a repo/book',
-    inputSchema: z.object({
-      id_or_namespace: z
-        .union([z.string(), z.number()])
-        .describe('Repo ID or namespace (e.g., "mygroup/mybook")'),
-    }),
-    handler: async (client: YuqueClient, args: { id_or_namespace: string | number }) => {
-      await client.deleteRepo(args.id_or_namespace);
-      return {
-        content: [
-          {
-            type: 'text' as const,
-            text: 'Repo deleted successfully',
-          },
-        ],
-      };
-    },
-  },
 };

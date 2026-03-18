@@ -157,29 +157,4 @@ export const docTools = {
     },
   },
 
-  yuque_delete_doc: {
-    description: 'Delete a document',
-    inputSchema: z.object({
-      repo_id: z
-        .union([z.string(), z.number()])
-        .describe('Repo ID or namespace (e.g., "mygroup/mybook")'),
-      doc_id: z
-        .union([z.string(), z.number()])
-        .describe('Document ID or slug'),
-    }),
-    handler: async (
-      client: YuqueClient,
-      args: { repo_id: string | number; doc_id: string | number }
-    ) => {
-      await client.deleteDoc(args.repo_id, args.doc_id);
-      return {
-        content: [
-          {
-            type: 'text' as const,
-            text: 'Document deleted successfully',
-          },
-        ],
-      };
-    },
-  },
 };

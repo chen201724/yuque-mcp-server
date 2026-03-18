@@ -100,13 +100,4 @@ describe('docTools', () => {
       expect(parsed).toHaveProperty('title', 'Updated');
     });
   });
-
-  describe('yuque_delete_doc', () => {
-    it('should delete doc and return success message', async () => {
-      (mockClient.deleteDoc as ReturnType<typeof vi.fn>).mockResolvedValue(undefined);
-      const result = await docTools.yuque_delete_doc.handler(mockClient, { repo_id: 1, doc_id: 1 } as never);
-      expect(result.content[0].text).toContain('deleted successfully');
-      expect(mockClient.deleteDoc).toHaveBeenCalledWith(1, 1);
-    });
-  });
 });

@@ -38,24 +38,16 @@ function formatNote(note: YuqueNote) {
   };
 }
 
-/** Convert plain text to Yuque Lake format (XML-like rich text format). */
-function textToLakeFormat(text: string): { source: string; html: string; abstract: string } {
-  const escapedText = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-  return {
-    source: `<!doctype lake><meta name="doc-version" content="1" /><meta name="viewport" content="fixed" /><meta name="typography" content="classic" /><p><span>${escapedText}</span></p>`,
-    html: `<!doctype html><div class="lake-content"><p><span>${escapedText}</span></p></div>`,
-    abstract: `<!doctype lake><meta name="doc-version" content="1" /><p><span>${escapedText}</span></p>`,
-  };
-}
-
 export const noteTools = {
   yuque_list_notes: {
-    description: 'List all notes (小记) for the current user',
+    description: 'List all notes (小记) for the current user with pagination',
     inputSchema: z.object({
       status: z.number().optional().describe('Filter by status: 0 (normal), 9 (deleted)'),
+      page: z.number().optional().describe('Page number (default: 1)'),
+      limit: z.number().optional().describe('Number of notes per page (default: 20)'),
     }),
-    handler: async (client: YuqueClient, args: { status?: number }) => {
-      const result = await client.listNotes(args.status);
+    handler: async (client: YuqueClient, args: { status?: number; page?: number; limit?: number }) => {
+      const result = await client.listNotes(args.status, args.page, args.limit);
       const allNotes = [...result.pin_notes, ...result.notes];
       return {
         content: [
@@ -125,34 +117,15 @@ export const noteTools = {
     description: 'Update an existing note',
     inputSchema: z.object({
       note_id: z.number().describe('Note ID'),
-      body: z.string().describe('New note content (plain text)'),
+      body: z.string().describe('New note content (plain text or markdown)'),
     }),
     handler: async (client: YuqueClient, args: { note_id: number; body: string }) => {
-      const lakeFormat = textToLakeFormat(args.body);
-      const note = await client.updateNote(args.note_id, lakeFormat);
+      const note = await client.updateNote(args.note_id, { body: args.body });
       return {
         content: [
           {
             type: 'text' as const,
             text: JSON.stringify(formatNote(note), null, 2),
-          },
-        ],
-      };
-    },
-  },
-
-  yuque_delete_note: {
-    description: 'Delete a note (move to trash)',
-    inputSchema: z.object({
-      note_id: z.number().describe('Note ID'),
-    }),
-    handler: async (client: YuqueClient, args: { note_id: number }) => {
-      await client.deleteNote(args.note_id);
-      return {
-        content: [
-          {
-            type: 'text' as const,
-            text: 'Note deleted successfully (moved to trash)',
           },
         ],
       };
