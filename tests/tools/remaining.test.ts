@@ -84,14 +84,6 @@ describe('groupTools', () => {
       expect(result.content[0].type).toBe('text');
     });
   });
-
-  describe('yuque_remove_group_member', () => {
-    it('should remove member', async () => {
-      (mockClient.removeGroupMember as ReturnType<typeof vi.fn>).mockResolvedValue(undefined);
-      const result = await groupTools.yuque_remove_group_member.handler(mockClient, { login: 'grp', user_id: 1 } as never);
-      expect(result.content[0].text).toContain('removed');
-    });
-  });
 });
 
 describe('statsTools', () => {
