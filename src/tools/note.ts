@@ -120,7 +120,11 @@ export const noteTools = {
       body: z.string().describe('New note content (plain text or markdown)'),
     }),
     handler: async (client: YuqueClient, args: { note_id: number; body: string }) => {
-      const note = await client.updateNote(args.note_id, { body: args.body });
+      const note = await client.updateNote(args.note_id, {
+        source: args.body,
+        html: `<p>${args.body}</p>`,
+        abstract: args.body.substring(0, 200),
+      });
       return {
         content: [
           {
