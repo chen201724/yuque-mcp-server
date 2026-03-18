@@ -69,10 +69,11 @@ export function createServer(token: string) {
       // Call the tool handler
       return await tool.handler(client, args as never);
     } catch (error) {
-      if (error instanceof Error) {
-        throw new Error(`Tool execution failed: ${error.message}`);
-      }
-      throw error;
+      const message = error instanceof Error ? error.message : String(error);
+      return {
+        content: [{ type: 'text' as const, text: `Tool execution failed: ${message}` }],
+        isError: true,
+      };
     }
   });
 
