@@ -18,7 +18,7 @@ async function appendDocToToc(
     await client.updateToc(repoId, tocData);
     return null; // success
   } catch {
-    return 'Document created successfully but failed to auto-append to TOC. Use yuque_update_toc to add it manually.';
+    return 'Document created successfully but failed to auto-append to TOC. Please manually arrange it in the TOC via the Yuque web interface.';
   }
 }
 
