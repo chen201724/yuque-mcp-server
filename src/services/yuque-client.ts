@@ -313,10 +313,10 @@ export class YuqueClient {
   }
 
   /** Update an existing note. */
-  async updateNote(noteId: number, data: CreateNoteData): Promise<YuqueNote> {
+  async updateNote(noteId: number, data: UpdateNoteData): Promise<YuqueNote> {
     return withErrorHandling(async () => {
-      const r = await this.client.put<YuqueApiResponse<YuqueNote>>(`/notes/${noteId}`, data);
-      return r.data.data;
+      const r = await this.client.put<{ data: { data: YuqueNote } }>(`/notes/${noteId}`, data);
+      return r.data.data.data;
     });
   }
 
@@ -324,13 +324,12 @@ export class YuqueClient {
   async deleteNote(noteId: number): Promise<void> {
     return withErrorHandling(async () => {
       const note = await this.getNote(noteId);
-      const data: UpdateNoteData = {
+      await this.updateNote(noteId, {
         source: note.content.source || '',
         html: note.content.html || '',
         abstract: note.content.abstract || '',
         status: 9,
-      };
-      await this.client.put(`/notes/${noteId}`, data);
+      });
     });
   }
 
@@ -338,13 +337,12 @@ export class YuqueClient {
   async restoreNote(noteId: number): Promise<void> {
     return withErrorHandling(async () => {
       const note = await this.getNote(noteId);
-      const data: UpdateNoteData = {
+      await this.updateNote(noteId, {
         source: note.content.source || '',
         html: note.content.html || '',
         abstract: note.content.abstract || '',
         status: 0,
-      };
-      await this.client.put(`/notes/${noteId}`, data);
+      });
     });
   }
 }
