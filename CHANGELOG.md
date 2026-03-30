@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.10] - 2026-03-30
+
 ### ✨ Features
 
 - Add `include_lake` option to `yuque_get_doc` for Mermaid source code preservation (#45)
@@ -137,6 +139,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add Docker support and improve CONTRIBUTING guide
 
+[0.1.10]: https://github.com/yuque/yuque-mcp-server/compare/v0.1.9...v0.1.10
 [0.1.9]: https://github.com/yuque/yuque-mcp-server/compare/v0.1.8...v0.1.9
 [0.1.8]: https://github.com/yuque/yuque-mcp-server/compare/v0.1.7...v0.1.8
 [0.1.7]: https://github.com/yuque/yuque-mcp-server/compare/v0.1.6...v0.1.7
