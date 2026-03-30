@@ -1,3 +1,9 @@
+## [0.1.12](https://github.com/yuque/yuque-mcp-server/compare/v0.1.11...v0.1.12) (2026-03-30)
+
+
+### Bug Fixes
+
+* sync MCP server metadata version with package version ([#51](https://github.com/yuque/yuque-mcp-server/issues/51)) ([244409c](https://github.com/yuque/yuque-mcp-server/commit/244409c179222d30fc03ed1ebe7d19e0c74a6c82))
 ## [0.1.11](https://github.com/yuque/yuque-mcp-server/compare/v0.1.10...v0.1.11) (2026-03-30)
 
 
