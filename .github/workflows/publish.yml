@@ -29,5 +29,12 @@ jobs:
     - name: Build
       run: npm run build
 
+    - name: Debug npm config
+      run: |
+        echo "npm version: $(npm -v)"
+        echo "node version: $(node -v)"
+        npm config list
+        cat ~/.npmrc 2>/dev/null || echo "No user .npmrc"
+
     - name: Publish to npm (Trusted Publishing)
-      run: npm publish --access public
+      run: npm publish --provenance --access public
