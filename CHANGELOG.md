@@ -1,3 +1,10 @@
+## [0.1.11](https://github.com/yuque/yuque-mcp-server/compare/v0.1.10...v0.1.11) (2026-03-30)
+
+
+### Bug Fixes
+
+* return note id and slug from yuque_create_note response ([#48](https://github.com/yuque/yuque-mcp-server/issues/48)) ([#49](https://github.com/yuque/yuque-mcp-server/issues/49)) ([94b5ca1](https://github.com/yuque/yuque-mcp-server/commit/94b5ca194db3a50acbf0b7c2efb5790d60e4fe02))
+* unify book identifier parameter from id_or_namespace to repo_id ([#47](https://github.com/yuque/yuque-mcp-server/issues/47)) ([#50](https://github.com/yuque/yuque-mcp-server/issues/50)) ([b6bd2a5](https://github.com/yuque/yuque-mcp-server/commit/b6bd2a5168f4c373ecfb50d6663e65fe4c3a1128))
 # Changelog
 
 All notable changes to this project will be documented in this file.
