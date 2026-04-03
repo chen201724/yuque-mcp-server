@@ -10,9 +10,6 @@ jobs:
     permissions:
       contents: read
       id-token: write
-    env:
-      NPM_CONFIG_CACHE: ${{ runner.temp }}/npm-cache
-      YUQUE_MCP_SMOKE_NPM_CACHE: ${{ runner.temp }}/npm-cache
 
     steps:
     - uses: actions/checkout@v4
@@ -22,6 +19,11 @@ jobs:
       with:
         node-version: '24.x'
         cache: 'npm'
+
+    - name: Configure npm cache paths
+      run: |
+        echo "NPM_CONFIG_CACHE=$RUNNER_TEMP/npm-cache" >> "$GITHUB_ENV"
+        echo "YUQUE_MCP_SMOKE_NPM_CACHE=$RUNNER_TEMP/npm-cache" >> "$GITHUB_ENV"
 
     - name: Configure npm registry for Trusted Publishing
       run: npm config set registry https://registry.npmjs.org/
