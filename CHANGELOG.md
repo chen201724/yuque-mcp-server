@@ -20,6 +20,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### 🐞 Bug Fixes
+
+- Fix Node.js v24 compatibility by replacing ESM JSON import with createRequire (#52) (#52)
+
 ## [0.1.10] - 2026-03-30
 
 ### ✨ Features
